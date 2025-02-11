@@ -28,7 +28,7 @@
     "@wix/redirects": "^1.0.71",
     "@wix/reviews": "^1.0.53",
     "@wix/sdk": "^1.15.10",
-    "@wix/stores": "^1.0.353",
+    "@wix/stores": "^1.0.354",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
