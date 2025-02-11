@@ -1,8 +1,12 @@
 import banner from "@/assets/banner.jpg";
+import Product from "@/components/Product";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { delay } from "@/lib/utils";
+import { getWixClient } from "@/lib/wix-client.base";
+import { ArrowRight, LoaderCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -35,6 +39,45 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-secondary via-transparent to-transparent" />
         </div>
       </div>
+      <Suspense fallback={<LoaderCircle className="animate-spin" />}>
+        <FeaturedProducts />
+      </Suspense>
     </main>
+  );
+}
+
+async function FeaturedProducts() {
+  await delay(1000);
+
+  const wixClient = getWixClient();
+
+  const { collection } = await wixClient.collections.getCollectionBySlug("featured-products");
+
+  if (!collection?._id) {
+    return null;
+  }
+
+  const featuredProducts = await wixClient.products.
+    queryProducts()
+    .hasSome("collectionIds", [collection._id])
+    .descending("lastUpdated")
+    .find();
+
+  if (!featuredProducts.items.length) {
+    return null;
+  }
+
+  return (
+    <div className="space-y-5">
+      <h2 className="text-2xl font-bold">Featured products</h2>
+      <div className="flex flex-col grid-cols-2 gap-5 sm:grid md:grid-cols-3 lg:grid-cols-4">
+        {featuredProducts.items.map((product) => (
+          <Product
+            key={product._id}
+            product={product}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
