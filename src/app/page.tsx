@@ -1,6 +1,7 @@
 import banner from "@/assets/banner.jpg";
 import Product from "@/components/Product";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { delay } from "@/lib/utils";
 import { getWixClient } from "@/lib/wix-client.base";
 import { ArrowRight, LoaderCircle } from "lucide-react";
@@ -39,7 +40,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-secondary via-transparent to-transparent" />
         </div>
       </div>
-      <Suspense fallback={<LoaderCircle className="animate-spin" />}>
+      <Suspense fallback={<LoadingSkeleton />}>
         <FeaturedProducts />
       </Suspense>
     </main>
@@ -78,6 +79,19 @@ async function FeaturedProducts() {
           />
         ))}
       </div>
+      <pre>
+        {JSON.stringify(featuredProducts, null, 2)}
+      </pre>
+    </div>
+  );
+}
+
+function LoadingSkeleton() {
+  return (
+    <div className="flex flex-col grid-cols-2 gap-5 pt-12 sm:grid md:grid-cols-3 lg:grid-cols-4">
+      {Array.from({ length: 8 }).map((_, index) => (
+        <Skeleton key={index} className="h-[24rem] w-full" />
+      ))}
     </div>
   );
 }
