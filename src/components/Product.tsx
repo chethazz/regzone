@@ -1,6 +1,7 @@
 import { formatCurrency } from "@/lib/utils";
 import { products } from "@wix/stores";
 import Link from "next/link";
+import DiscountBadge from "./DiscountBadge";
 import WixImage from "./WixImage";
 import Badge from "./ui/badge";
 
@@ -29,6 +30,7 @@ export default function Product({
                 />
                 <div className="absolute flex flex-wrap items-center gap-2 bottom-3 right-3">
                     {product.ribbon && <Badge>{product.ribbon}</Badge>}
+                    {product.discount && <DiscountBadge data={product.discount} />}
                     <Badge className="font-semibold bg-secondary text-secondary-foreground">
                         {getFormattedPrice(product)}
                     </Badge>
