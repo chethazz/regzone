@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Sulphur_Point } from "next/font/google";
 import "./globals.css";
+import Navbar from "./Navbar";
 
 const sulphurPoint = Sulphur_Point({
   weight: "400",
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body
         className={`${sulphurPoint.className} antialiased`}
       >
+        <Navbar />
         {children}
       </body>
     </html>
