@@ -3,6 +3,7 @@
 import Badge from "@/components/ui/badge";
 import WixImage from "@/components/WixImage";
 import { products } from "@wix/stores";
+import ProductOptions from "./ProductOptions";
 
 interface ProductDetailsProps {
     product: products.Product;
@@ -35,9 +36,10 @@ export default function ProductDetails({
                 {product.description && (
                     <div 
                     dangerouslySetInnerHTML={{ __html: product.description }}
-                    className="prose dark:prose-invert"
+                    className="bg-card prose dark:prose-invert"
                     />
                 )}
+                <ProductOptions product={product}/>
             </div>
         </div>
     );
