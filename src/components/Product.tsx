@@ -1,3 +1,4 @@
+import { formatCurrency } from "@/lib/utils";
 import { products } from "@wix/stores";
 import Link from "next/link";
 import WixImage from "./WixImage";
@@ -27,11 +28,10 @@ export default function Product({
                     className="transition-transform duration-300 hover:scale-110"
                 />
                 <div className="absolute flex flex-wrap items-center gap-2 bottom-3 right-3">
-                    {product.ribbon && (
-                        <Badge>
-                            {product.ribbon}
-                        </Badge>
-                    )}
+                    {product.ribbon && <Badge>{product.ribbon}</Badge>}
+                    <Badge className="font-semibold bg-secondary text-secondary-foreground">
+                        {getFormattedPrice(product)}
+                    </Badge>
                 </div>
             </div>
             <div className="p-3 space-y-3">
@@ -43,4 +43,17 @@ export default function Product({
             </div>
         </Link>
     );
+}
+
+function getFormattedPrice(product: products.Product) {
+    const minPrice = product.priceRange?.minValue;
+    const maxPrice = product.priceRange?.maxValue;
+
+    if (minPrice && maxPrice && minPrice !== maxPrice) {
+        return `from ${formatCurrency(minPrice, product.priceData?.currency)}`;
+    } else {
+        return (
+            product.priceData?.formatted?.discountedPrice || product.priceData?.formatted?.price || "n/a"
+        );
+    }
 }
