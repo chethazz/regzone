@@ -5,6 +5,7 @@ import WixImage from "@/components/WixImage";
 import { products } from "@wix/stores";
 import { useState } from "react";
 import ProductOptions from "./ProductOptions";
+import { findVariant } from "@/lib/utils";
 
 interface ProductDetailsProps {
     product: products.Product;
@@ -23,6 +24,8 @@ export default function ProductDetails({
             }))
             ?.reduce((acc, curr) => ({ ...acc, ...curr }), {}) || {}
     );
+
+    const selectedVariant = findVariant(product, selectedOptions);
 
     return (
         <div className="flex flex-col gap-10 md:flex-row lg:gap-20">
@@ -59,6 +62,10 @@ export default function ProductDetails({
                 <div>
                     Selected options
                     {JSON.stringify(selectedOptions)}
+                </div>
+                <div>
+                    Variant:
+                    {JSON.stringify(selectedVariant?.choices)}
                 </div>
             </div>
         </div>
