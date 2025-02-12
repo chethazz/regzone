@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Sulphur_Point } from "next/font/google";
+import Footer from "./Footer";
 import "./globals.css";
 import Navbar from "./Navbar";
 
@@ -28,6 +29,7 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
