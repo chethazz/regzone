@@ -39,3 +39,20 @@ export async function queryProducts({
 
     return query.find();
 }
+
+export async function getProductBySlug(slug: string) {
+    const wixClient = getWixClient();
+
+    const { items } = await wixClient.products.queryProducts()
+        .eq("slug", slug)
+        .limit(1)
+        .find();
+
+        const product = items[0]
+
+        if(!product || !product.visible) {
+            return null;
+        }
+
+        return product;
+}
