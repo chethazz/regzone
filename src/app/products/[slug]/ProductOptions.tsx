@@ -1,13 +1,19 @@
 import { Label } from "@/components/ui/label";
 import { products } from "@wix/stores";
+import { useState } from "react";
 
 interface ProductOptionsProps {
     product: products.Product;
+    selectedOptions: Record<string, string>;
+    setSelectedOptions: (options: Record<string, string>) => void;
 }
 
 export default function ProductOptions({
-    product
+    product,
+    selectedOptions,
+    setSelectedOptions
 }: ProductOptionsProps) {
+
     return (
         <div className="space-y-2.5">
             {product.productOptions?.map(option => (
@@ -26,6 +32,11 @@ export default function ProductOptions({
                                         id={choice.description}
                                         name={option.name}
                                         value={choice.description}
+                                        checked={selectedOptions[option.name || ""] === choice.description}
+                                        onChange={() => setSelectedOptions({
+                                            ...selectedOptions,
+                                            [option.name || ""]: choice.description || ""
+                                        })}
                                         className="hidden peer"
                                     />
                                     <Label
