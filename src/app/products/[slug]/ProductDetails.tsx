@@ -6,6 +6,7 @@ import { checkInStock, findVariant } from "@/lib/utils";
 import { products } from "@wix/stores";
 import { useState } from "react";
 import ProductOptions from "./ProductOptions";
+import ProductPrice from "./ProductPrice";
 
 interface ProductDetailsProps {
     product: products.Product;
@@ -56,6 +57,10 @@ export default function ProductDetails({
                         className="prose bg-card dark:prose-invert"
                     />
                 )}
+                <ProductPrice
+                product={product}
+                selectedVariant={selectedOptions}
+                />
                 <ProductOptions
                     product={product}
                     selectedOptions={selectedOptions}
