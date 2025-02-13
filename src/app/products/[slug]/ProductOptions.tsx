@@ -1,6 +1,6 @@
 import { Label } from "@/components/ui/label";
+import { checkInStock, cn } from "@/lib/utils";
 import { products } from "@wix/stores";
-import { useState } from "react";
 
 interface ProductOptionsProps {
     product: products.Product;
@@ -41,7 +41,13 @@ export default function ProductOptions({
                                     />
                                     <Label
                                         htmlFor={choice.description}
-                                        className="flex items-center justify-center min-w-14 gap-1.5 border p-2 peer-checked:border-primary"
+                                        className={cn(
+                                            "flex items-center justify-center min-w-14 gap-1.5 border p-2 peer-checked:border-primary",
+                                            !checkInStock(product, {
+                                                ...selectedOptions,
+                                                [option.name || ""]: choice.description || ""
+                                            }) && "opacity-50"
+                                        )}
                                     >
                                         {option.optionType === products.OptionType.color && (
                                             <span
