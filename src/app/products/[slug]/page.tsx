@@ -1,9 +1,35 @@
 import { getProductBySlug } from "@/wix-api/products";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProductDetails from "./ProductDetails";
 
 interface PageProps {
     params: Promise<{ slug: string; }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const slug = (await params).slug;
+    const product = await getProductBySlug(slug);
+
+    if (!product) notFound();
+
+    const mainImage = product.media?.mainMedia?.image;
+
+    return {
+        title: product.name,
+        description: "Get this product on Regzone",
+        openGraph: {
+            images: mainImage?.url
+                ? [
+                    {
+                        url: mainImage.url,
+                        width: mainImage.width,
+                        height: mainImage.height,
+                        alt: mainImage.altText || ""
+                    }
+                ] : undefined
+        }
+    };
 }
 
 export default async function Page({ params }: PageProps) {
@@ -15,7 +41,7 @@ export default async function Page({ params }: PageProps) {
     if (!product) notFound();
 
     return (
-        <main className="mx-auto space-y-10 max-w-7xl px-5 py-5">
+        <main className="px-5 py-5 mx-auto space-y-10 max-w-7xl">
             <ProductDetails product={product} />
             <pre>
                 {JSON.stringify(product, null, 2)}
