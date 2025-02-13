@@ -2,10 +2,10 @@
 
 import Badge from "@/components/ui/badge";
 import WixImage from "@/components/WixImage";
+import { checkInStock, findVariant } from "@/lib/utils";
 import { products } from "@wix/stores";
 import { useState } from "react";
 import ProductOptions from "./ProductOptions";
-import { findVariant } from "@/lib/utils";
 
 interface ProductDetailsProps {
     product: products.Product;
@@ -26,6 +26,8 @@ export default function ProductDetails({
     );
 
     const selectedVariant = findVariant(product, selectedOptions);
+
+    const inStock = checkInStock(product, selectedOptions);
 
     return (
         <div className="flex flex-col gap-10 md:flex-row lg:gap-20">
