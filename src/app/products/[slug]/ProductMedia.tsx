@@ -21,7 +21,7 @@ export default function ProductMedia({
     const selectedVideo = selectedMedia?.video?.files?.[0];
 
     return (
-        <div className="space-y-5 basis-2/5 md:sticky md:top-0 h-fit">
+        <div className="space-y-5 basis-2/5 md:sticky md:top-10 h-fit">
             <div className="aspect-square bg-secondary">
                 {selectedImage?.url ? (
                     <Zoom key={selectedImage.url}>

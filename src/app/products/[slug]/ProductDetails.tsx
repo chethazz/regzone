@@ -37,11 +37,21 @@ export default function ProductDetails({
     const availableQuantity = selectedVariant?.stock?.quantity ?? product.stock?.quantity;
     const availableQuantityExceeded = !!availableQuantity && quantity > availableQuantity;
 
+    const selectedOptionMedia = product.productOptions?.flatMap(option => {
+        const selectedChoice = option.choices?.find(
+            choice => choice.description === selectedOptions[option.name || ""]
+        );
+        return selectedChoice?.media?.items ?? [];
+    });
+
     return (
         <div className="flex flex-col gap-10 md:flex-row lg:gap-20">
             <div className="basis-2/5">
                 <ProductMedia
-                    media={product.media?.items}
+                    media={!!selectedOptionMedia?.length
+                        ? selectedOptionMedia
+                        : product.media?.items
+                    }
                 />
             </div>
             <div className="space-y-5 basis-3/5">
@@ -62,7 +72,7 @@ export default function ProductDetails({
                 )}
                 <ProductPrice
                     product={product}
-                    selectedVariant={selectedOptions}
+                    selectedVariant={selectedVariant}
                 />
                 <ProductOptions
                     product={product}
