@@ -24,7 +24,7 @@ export default function ProductMedia({
         <div className="space-y-5 basis-2/5 md:sticky md:top-0 h-fit">
             <div className="aspect-square bg-secondary">
                 {selectedImage?.url ? (
-                    <Zoom>
+                    <Zoom key={selectedImage.url}>
                         <WixImage
                             mediaIdentifier={selectedImage.url}
                             alt={selectedImage.altText}
