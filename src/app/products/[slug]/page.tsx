@@ -43,9 +43,6 @@ export default async function Page({ params }: PageProps) {
     return (
         <main className="px-5 py-5 mx-auto space-y-10 max-w-7xl">
             <ProductDetails product={product} />
-            <pre>
-                {JSON.stringify(product, null, 2)}
-            </pre>
         </main>
     );
 }

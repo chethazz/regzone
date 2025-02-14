@@ -76,9 +76,6 @@ async function FeaturedProducts() {
           />
         ))}
       </div>
-      <pre>
-        {JSON.stringify(featuredProducts, null, 2)}
-      </pre>
     </div>
   );
 }
