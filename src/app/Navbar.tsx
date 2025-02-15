@@ -1,4 +1,4 @@
-import { getWixServerClient } from "@/lib/wix-server.base";
+import { getWixServerClient } from "@/lib/wix-client.server";
 import { getCart } from "@/wix-api/cart";
 import Link from "next/link";
 
