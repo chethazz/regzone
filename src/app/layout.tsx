@@ -1,8 +1,10 @@
+import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { Sulphur_Point } from "next/font/google";
 import Footer from "./Footer";
 import "./globals.css";
 import Navbar from "./Navbar";
+import ReactQueryProvider from "./ReactQueryProvider";
 
 const sulphurPoint = Sulphur_Point({
   weight: "400",
@@ -27,9 +29,12 @@ export default function RootLayout({
       <body
         className={`${sulphurPoint.className} antialiased`}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <ReactQueryProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </ReactQueryProvider>
+        <Toaster />
       </body>
     </html>
   );
