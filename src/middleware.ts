@@ -15,7 +15,7 @@ export async function middleware(req: NextRequest) {
         ? (JSON.parse(sessionCookie.value) as Tokens)
         : await wixClient.auth.generateVisitorTokens();
 
-    if (sessionTokens.accessToken.expiresAt < Math.floor(Date.now() / 1000)) {
+    if (sessionTokens.accessToken?.expiresAt < Math.floor(Date.now() / 1000)) {
         try {
             sessionTokens = await wixClient.auth.renewToken(sessionTokens.refreshToken);
         } catch (error) {
