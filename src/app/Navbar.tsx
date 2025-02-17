@@ -1,6 +1,7 @@
 import { getWixServerClient } from "@/lib/wix-client.server";
 import { getCart } from "@/wix-api/cart";
 import Link from "next/link";
+import ShoppingCartButton from "./ShoppingCartButton";
 
 export default async function Navbar() {
     const cart = await getCart(await getWixServerClient());
@@ -13,7 +14,7 @@ export default async function Navbar() {
                 <Link href="/" className="text-xl font-bold">
                     Regzone
                 </Link>
-                {totalQuantity} Items in your cart
+                <ShoppingCartButton initialData={cart} />
             </div>
         </header>
     );
